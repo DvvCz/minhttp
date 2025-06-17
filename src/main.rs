@@ -3,7 +3,7 @@ mod response;
 
 use futures_rustls::TlsAcceptor;
 use rustls::ServerConfig;
-use smol::{net, prelude::*};
+use smol::prelude::*;
 use std::sync::Arc;
 
 async fn load_tls_config(cert_file: &std::path::Path, key_file: &std::path::Path) -> anyhow::Result<Arc<ServerConfig>> {
@@ -64,7 +64,7 @@ fn main() -> anyhow::Result<()> {
             println!("Running in development mode at http://{}", url);
 
             smol::block_on(async {
-                let stream = net::TcpListener::bind(url).await?;
+                let stream = smol::net::TcpListener::bind(url).await?;
 
                 loop {
                     let (stream, _) = stream.accept().await?;
@@ -89,7 +89,7 @@ fn main() -> anyhow::Result<()> {
                 let tls_config = load_tls_config(cert_file, private_key_file).await?;
                 let acceptor = TlsAcceptor::from(tls_config);
 
-                let listener = net::TcpListener::bind(url).await?;
+                let listener = smol::net::TcpListener::bind(url).await?;
 
                 loop {
                     let (stream, _) = listener.accept().await?;
