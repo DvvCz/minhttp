@@ -2,7 +2,11 @@ pub struct Response {
     bytes: Vec<u8>,
 }
 
-const HEADER_SIZE: usize = "HTTP/1.1 ".len() + "\r\nContent-Length: ".len() + "\r\n\r\n".len();
+const HEADER_SIZE: usize = "HTTP/1.1 ".len()
+    + "\r\nContent-Length: ".len()
+    + "Content-Type: text/plain; charset=utf-8\r\n".len()
+    + "Connection: close\r\n".len()
+    + "\r\n\r\n".len();
 
 impl Response {
     pub fn text(text: &str, code: u16) -> Self {
@@ -19,6 +23,8 @@ impl Response {
         response.extend_from_slice(code.to_string().as_bytes());
         response.extend_from_slice(b"\r\nContent-Length: ");
         response.extend_from_slice(content_length.to_string().as_bytes());
+        response.extend_from_slice(b"\r\nContent-Type: text/plain; charset=utf-8\r\n");
+        response.extend_from_slice(b"Connection: close\r\n");
         response.extend_from_slice(b"\r\n\r\n");
         response.extend_from_slice(&content_bytes);
 

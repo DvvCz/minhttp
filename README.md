@@ -33,10 +33,9 @@ wrk -t12 -c400 -d10s http://localhost:3000
 Running 10s test @ http://localhost:3000
   12 threads and 400 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     2.58ms   10.14ms 211.11ms   99.33%
-    Req/Sec     6.19k     1.97k   17.84k    69.54%
-  742583 requests in 10.10s, 36.12MB read
-  Socket errors: connect 0, read 742574, write 0, timeout 0
-Requests/sec:  73526.09
-Transfer/sec:      3.58MB
+    Latency     2.04ms    5.61ms 211.12ms   99.78%
+    Req/Sec     6.28k     2.36k   17.15k    74.41%
+  742615 requests in 10.10s, 80.03MB read
+Requests/sec:  73529.83
+Transfer/sec:      7.92MB
 ```
