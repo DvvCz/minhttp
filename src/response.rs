@@ -25,7 +25,7 @@ impl Response {
         response.extend_from_slice(content_length.to_string().as_bytes());
         response.extend_from_slice(b"\r\nContent-Type: text/plain; charset=utf-8\r\n");
         response.extend_from_slice(b"Connection: close\r\n");
-        response.extend_from_slice(b"\r\n\r\n");
+        response.extend_from_slice(b"\r\n");
         response.extend_from_slice(&content_bytes);
 
         Self { bytes: response }
